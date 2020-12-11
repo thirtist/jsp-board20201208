@@ -21,6 +21,8 @@
 	<a href="logout.do">[로그아웃하기]</a>
 	<a href="changePwd.do">[암호변경하기]</a>
 	<a href="removeMember.do">[회원탈퇴하기]</a>
+    <a href="article/write.do">[게시물쓰기]</a>  
+    <a href="article/list.do">[게시물읽기]</a>  
 </u:isLogin>
 
 <u:notLogin>
