@@ -145,7 +145,10 @@ public class ControllerUsingURI extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher(prefix + view + suffix).forward(request, response);
+		
+		if (view !=null) {
+			request.getRequestDispatcher(prefix + view + suffix).forward(request, response);			
+		}
 		//
 
 	}
