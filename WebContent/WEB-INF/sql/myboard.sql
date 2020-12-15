@@ -51,3 +51,38 @@ WHERE rn BETWEEN 1 AND 5;
 SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt 
 FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, ROW_NUMBER()
 OVER (ORDER BY article_no DESC) rn FROM article ) WHERE rn BETWEEN 1 AND 5;
+------------
+--11g는 GENERATED AS IDENTITY를 못쓰니 시퀀스로 써야함
+CREATE SEQUENCE reply_seq;
+CREATE TABLE replay (
+    replyid NUMBER GENERATED AS IDENTITY,
+    memberid VARCHAR2(50) NOT NULL,
+    article_no NUMBER NOT NULL,
+    body VARCHAR2(1000) NOT NULL,
+    regdata DATE NOT NULL
+);
+INSERT INTO replay (replyid, memberid, article_no, body, regdate)
+VALUES (reply_seq.nextVal, ' ', 0,  ' ', SYSDATE);
+
+
+------------
+DROP TABLE reply;
+CREATE TABLE reply (
+    replyid NUMBER GENERATED AS IDENTITY,
+    memberid VARCHAR2(50) NOT NULL,
+    article_no NUMBER NOT NULL,
+    body VARCHAR2(1000) NOT NULL,
+    regdate DATE NOT NULL,
+    PRIMARY KEY (replyid)
+);
+INSERT INTO reply (memberid, article_no, body, regdate)
+VALUES (' ', 0, ' ', SYSDATE);
+
+SELECT * FROM reply;
+
+SELECT replyid, memberid, article_no, body, regdate
+FROM reply
+WHERE article_no = 85
+ORDER BY replyid DESC;
+
+SELECT replyid, memberid, article_no, body, regdate FROM reply WHERE article_no = 85 ORDER BY replyid DESC;
