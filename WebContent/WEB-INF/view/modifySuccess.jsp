@@ -14,7 +14,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>가입 성공</h1>
-<p>${param.name }님 회원가입이 되었습니다 </p>
+게시글을 수정했습니다
+<br />
+<a href="${root }/article/list.do">[게시글 목록보기]</a>
+<a href="${root }/article/read.do?no=${modReq.articleNumber}">[게시글내용보기]</a>
 </body>
 </html>

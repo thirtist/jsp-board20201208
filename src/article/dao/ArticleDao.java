@@ -15,6 +15,58 @@ import jdbc.JdbcUtil;
 
 public class ArticleDao {
 	
+	public int delete(Connection conn, int no) throws SQLException{
+		String sql = "Delete article "
+				+ "WHERE article_no = ?";	
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, no);
+			int cnt = pstmt.executeUpdate();
+			
+			return cnt;
+		}	
+	}
+	
+	public int update(Connection conn, int no, String title) throws SQLException{
+		String sql = "UPDATE article "
+				+ "SET title=?, moddate=SYSDATE "
+				+ "WHERE article_no = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, title);
+			pstmt.setInt(2,no);
+			
+			int cnt = pstmt.executeUpdate();
+			return cnt;
+		}
+	}
+	
+	//게시판읽기기능1-아티클number를 받아와서 그 아티클을 리턴
+	public Article selectById(Connection conn, int no) throws SQLException{
+		String sql = "SELECT * FROM article where article_no = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			Article article = null;
+			if (rs.next()) {
+				article = convertArticle(rs);
+			}
+			return article;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+	//게시판읽기기능2-조회수
+	public void increaseReadCount(Connection conn, int no) throws SQLException {
+		String sql = "UPDATE article set read_cnt = read_cnt + 1 WHERE article_no = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, no);
+		pstmt.executeUpdate();
+		}
+	}
+	
+	
 	//
 	public List<Article> select(Connection conn, int pageNum, int size) throws SQLException{
 		/* mysql쿼리 시작행과 몇 개인지를 받아야함

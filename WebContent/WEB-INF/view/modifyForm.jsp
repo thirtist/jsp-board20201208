@@ -14,7 +14,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>가입 성공</h1>
-<p>${param.name }님 회원가입이 되었습니다 </p>
+<form action="modify.do" method="post">
+	<input type="text" hidden name="no" value="${modReq.articleNumber }"/>
+<p>
+	번호 : <br /> ${modReq.articleNumber }
+</p>
+<p>
+	제목 : <br /> <input type="text" name="title" value="${modReq.title }"/>
+	<c:if test="${errors.title }">제목을 입력하세요.</c:if>
+</p>
+<p>
+	내용 : <br />
+	<textarea rows="5" cols="30"name="content">${modReq.content }</textarea>
+</p>
+<input type="submit" value="글 수정"/>
+
+</form>
 </body>
 </html>

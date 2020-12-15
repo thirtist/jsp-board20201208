@@ -14,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>가입 성공</h1>
-<p>${param.name }님 회원가입이 되었습니다 </p>
+<h1>게시물삭제성공</h1>
+<a href="${root }/article/list.do">[게시글 목록보기]</a>
 </body>
 </html>

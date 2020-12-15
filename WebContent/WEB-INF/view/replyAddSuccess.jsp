@@ -14,7 +14,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>가입 성공</h1>
-<p>${param.name }님 회원가입이 되었습니다 </p>
+<h1>댓글등록완료</h1>
 </body>
 </html>
